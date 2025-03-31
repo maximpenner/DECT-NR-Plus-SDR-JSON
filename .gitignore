@@ -1,0 +1,6 @@
+# general
+*.__pycache__
+*.py[cod]
+*.mat
+
+json_preprocessed/*
