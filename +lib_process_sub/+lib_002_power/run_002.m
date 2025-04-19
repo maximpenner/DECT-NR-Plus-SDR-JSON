@@ -86,7 +86,7 @@ function [] = run_002(json_with_meta_vec, run_call)
 
     %% is this the final call?
     if run_call.n_processing == run_call.i
-        %% power
+        %% power at 0dBFS
         figure(200)
         clf()
 
@@ -119,8 +119,6 @@ function [] = run_002(json_with_meta_vec, run_call)
         figure(201)
         clf()
 
-        %% rms_vec
-
         plot(t, rms_vec_vec);
 
         title('+lib_002_power', 'Interpreter', 'none');
@@ -139,8 +137,36 @@ function [] = run_002(json_with_meta_vec, run_call)
 
         ylim([-0.1, 0.75]);
 
-        %% antenna of detection
+        %% power
         figure(202)
+        clf()
+
+        power_dBm = rx_power_ant_0dBFS_vec + mag2db(rms_vec_vec);
+
+        power_avg_dBm = pow2db(mean(db2pow(power_dBm), 'all'));
+
+        plot(t, power_dBm);
+        yline(power_avg_dBm)
+
+        title('+lib_002_power', 'Interpreter', 'none');
+        legend('Interpreter', 'none');
+
+        xlabel('Time in sec');
+        ylabel('dBm', 'Interpreter', 'none');
+
+        tmp = gca;
+        for i=1:1:8
+            tmp.Legend.String(i) = {"RX" + num2str(i-1)};
+        end
+        tmp.Legend.String(9) = {"avg"};
+
+        grid on
+        grid minor
+
+        ylim([-120, 10]);
+
+        %% antenna of detection
+        figure(203)
         clf()
 
         subplot(2,1,1);
