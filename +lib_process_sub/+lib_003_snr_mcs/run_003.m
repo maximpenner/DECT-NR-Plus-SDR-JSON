@@ -26,6 +26,7 @@ function [] = run_003(json_with_meta_vec, run_call)
     persistent samp_rate;
 
     persistent snr_vec;
+    persistent mcs_vec;
     persistent fine_peak_vec;
 
     persistent cnt;
@@ -41,6 +42,7 @@ function [] = run_003(json_with_meta_vec, run_call)
         n_elem = run_call.n_processing * run_call.n_packets_per_json;
 
         snr_vec = zeros(1, n_elem);
+        mcs_vec = zeros(1, n_elem);
 
         fine_peak_vec = snr_vec;
 
@@ -58,6 +60,7 @@ function [] = run_003(json_with_meta_vec, run_call)
         packet_struct = json_with_meta.packet_cells{i};
 
         snr_vec(cnt) = packet_struct.PHY.rx_synced.snr;
+        mcs_vec(cnt) = packet_struct.PHY.rx_synced.MCS;
         fine_peak_vec(cnt) = lib_extract.fine_peak(packet_struct);
 
         cnt = cnt + 1;
@@ -72,17 +75,21 @@ function [] = run_003(json_with_meta_vec, run_call)
 
         % convert to seconds
         t = fine_peak_vec / samp_rate;
-        
+
         plot(t, snr_vec);
-
-        title('+lib_003_snr', 'Interpreter', 'none');
-
+        grid on
+        grid minor
+        ylim([-10, 50]);
         xlabel('Time in sec');
         ylabel('SNR dB');
 
-        grid on
-        grid minor
+        yyaxis right
+        plot(t, mcs_vec);
+        ylim([-2, 16]);
+        xlabel('Time in sec');
+        ylabel('MCS');
 
-        ylim([-100, 50]);
+        title('+lib_003_snr_mcs', 'Interpreter', 'none');
+        xlabel('Time in sec');
     end
 end

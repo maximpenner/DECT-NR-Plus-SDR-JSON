@@ -57,7 +57,7 @@ function [] = process(config_process)
         % actual processing of neighbouring files
         lib_process_sub.lib_001_delay_spread.run_001(json_with_meta_vec, run_call);
         lib_process_sub.lib_002_power.run_002(json_with_meta_vec, run_call);
-        lib_process_sub.lib_003_snr.run_003(json_with_meta_vec, run_call);
+        lib_process_sub.lib_003_snr_mcs.run_003(json_with_meta_vec, run_call);
         lib_process_sub.lib_004_per.run_004(json_with_meta_vec, run_call);
         %lib_process_sub.lib_005_doppler.run_005(json_with_meta_vec, run_call);
         lib_process_sub.lib_006_subsampling.run_006(json_with_meta_vec, run_call);

@@ -106,6 +106,9 @@ function [] = run_002(json_with_meta_vec, run_call)
 
         tmp = gca;
         tmp.Legend.String(1) = {"TX"};
+        for i=2:1:9
+            tmp.Legend.String(i) = {"RX" + num2str(i-2)};
+        end
 
         grid on
         grid minor
@@ -125,6 +128,11 @@ function [] = run_002(json_with_meta_vec, run_call)
 
         xlabel('Time in sec');
         ylabel('rms_vec_vec', 'Interpreter', 'none');
+
+        tmp = gca;
+        for i=1:1:8
+            tmp.Legend.String(i) = {"RX" + num2str(i-1)};
+        end
 
         grid on
         grid minor
