@@ -142,11 +142,16 @@ function [] = run_002(json_with_meta_vec, run_call)
         clf()
 
         power_dBm = rx_power_ant_0dBFS_vec + mag2db(rms_vec_vec);
+        power_lin = db2pow(power_dBm);
 
-        power_avg_dBm = pow2db(mean(db2pow(power_dBm), 'all'));
+        power_avg_dBm = pow2db(mean(power_lin, 'all'));
+
+        power_max_dBm = pow2db(sum(power_lin, 1));
 
         plot(t, power_dBm);
+        hold on
         yline(power_avg_dBm)
+        plot(t, power_max_dBm, '--', 'LineWidth', 2)
 
         title('+lib_002_power', 'Interpreter', 'none');
         legend('Interpreter', 'none');
@@ -159,6 +164,7 @@ function [] = run_002(json_with_meta_vec, run_call)
             tmp.Legend.String(i) = {"RX" + num2str(i-1)};
         end
         tmp.Legend.String(9) = {"avg"};
+        tmp.Legend.String(10) = {"sum"};
 
         grid on
         grid minor
