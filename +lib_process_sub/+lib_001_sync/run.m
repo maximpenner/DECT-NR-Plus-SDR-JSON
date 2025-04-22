@@ -16,7 +16,7 @@
 % the LICENSE file in the top-level directory of this distribution
 % and at http://www.gnu.org/licenses/.
 
-function [] = run_006(json_with_meta_vec, run_call)
+function [] = run(json_with_meta_vec, run_call)
 
     global plot_debug_allow;
 
@@ -25,9 +25,10 @@ function [] = run_006(json_with_meta_vec, run_call)
     persistent scale;
     persistent samp_rate;
 
-    persistent subsampling_vec;
-
+    persistent coarse_peak_vec;
     persistent fine_peak_vec;
+    persistent fine_peak_sto_fractional_vec;
+    persistent sto_fractional_vec;
 
     persistent cnt;
 
@@ -41,9 +42,10 @@ function [] = run_006(json_with_meta_vec, run_call)
 
         n_elem = run_call.n_processing * run_call.n_packets_per_json;
 
-        subsampling_vec = zeros(1, n_elem);
-
+        coarse_peak_vec = zeros(1, n_elem);
         fine_peak_vec = zeros(1, n_elem);
+        fine_peak_sto_fractional_vec = zeros(1, n_elem);
+        sto_fractional_vec = zeros(1, n_elem);
 
         cnt = 1;
     end
@@ -58,9 +60,10 @@ function [] = run_006(json_with_meta_vec, run_call)
         % extract one packet
         packet_struct = json_with_meta.packet_cells{i};
 
-        subsampling_vec(cnt) = 0.0;
-
+        coarse_peak_vec(cnt) = packet_struct.PHY.sync_report.coarse_peak_time;
         fine_peak_vec(cnt) = lib_extract.fine_peak(packet_struct);
+        fine_peak_sto_fractional_vec(cnt) = packet_struct.PHY.sync_report.fine_peak_time_corrected_by_sto_fractional;
+        sto_fractional_vec(cnt) = packet_struct.PHY.sync_report.sto_fractional;
 
         cnt = cnt + 1;
     end
@@ -69,46 +72,45 @@ function [] = run_006(json_with_meta_vec, run_call)
     %% is this the final call?
     if run_call.n_processing == run_call.i
         %% subsampling values
-        figure(600)
+        figure(100)
         clf()
 
-        % convert to seconds
         t = fine_peak_vec / samp_rate;
 
-        subplot(2,1,1);
-        plot(t, subsampling_vec);
+        %% coarse vs fine peak
+        subplot(2,1,1)
 
-        title('+lib_006_subsampling', 'Interpreter', 'none');
+        plot(t, fine_peak_vec - coarse_peak_vec);
+
+        title('+lib_001_sync', 'Interpreter', 'none');
 
         xlabel('Time in sec');
-        ylabel('Amplitude');
+        ylabel('Deviation in Samples');
 
-        legend('subsampling_vec', 'Interpreter', 'none');
+        legend('fine_peak_vec - coarse_peak_vec', 'Interpreter', 'none');
 
         grid on
         grid minor
 
-        ylim([-1.5 1.5]);
+        ylim([-2.5 2.5]);
 
-        %% subsampling values with fine sync point
+        %% fractional STO
+        subplot(2,1,2)
 
-        A = diff(fine_peak_vec);
-        A = A - mode(A);
-        A = A + subsampling_vec(1:end-1) + subsampling_vec(2:end);
+        plot(t, sto_fractional_vec);
+        hold on
+        plot(t, fine_peak_vec - fine_peak_sto_fractional_vec);
 
-        subplot(2,1,2);
-        plot(A);
-
-        title('+lib_006_subsampling', 'Interpreter', 'none');
+        title('+lib_001_sync', 'Interpreter', 'none');
 
         xlabel('Time in sec');
-        ylabel('Amplitude');
+        ylabel('Deviation in Samples');
 
-        legend('subsampling_vec', 'Interpreter', 'none');
+        legend('sto_fractional_vec', 'fine_peak_vec - fine_peak_sto_fractional_vec', 'Interpreter', 'none');
 
         grid on
         grid minor
 
-        ylim([-1.5 1.5]);
+        ylim([-2.5 2.5]);
     end
 end

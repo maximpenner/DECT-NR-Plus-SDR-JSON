@@ -16,7 +16,7 @@
 % the LICENSE file in the top-level directory of this distribution
 % and at http://www.gnu.org/licenses/.
 
-function [] = run_002(json_with_meta_vec, run_call)
+function [] = run(json_with_meta_vec, run_call)
 
     global plot_debug_allow;
 

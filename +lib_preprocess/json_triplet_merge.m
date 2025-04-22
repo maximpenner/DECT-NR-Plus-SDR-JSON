@@ -65,7 +65,7 @@ function [json_merged] = json_triplet_merge(json_A, json_B, json_C)
 
     % reading as double is fine, double has enough precision
     for i = 1:numel(json_merged.packet_indices)
-        json_merged.packet_times(i) = json_merged.packet_cells{i}.PHY.sync_report.fine_peak;
+        json_merged.packet_times(i) = json_merged.packet_cells{i}.PHY.sync_report.fine_peak_time;
     end
 
     % times are not necessarily sorted, create vector of packet indices sorted by time

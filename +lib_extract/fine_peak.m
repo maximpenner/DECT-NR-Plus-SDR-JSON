@@ -17,6 +17,6 @@
 % and at http://www.gnu.org/licenses/.
 
 function [fpeak] = fine_peak(packet_struct)
-    fpeak = packet_struct.PHY.sync_report.fine_peak;
+    fpeak = packet_struct.PHY.sync_report.fine_peak_time;
 end
 

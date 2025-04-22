@@ -16,7 +16,7 @@
 % the LICENSE file in the top-level directory of this distribution
 % and at http://www.gnu.org/licenses/.
 
-function [] = run_001(json_with_meta_vec, run_call)
+function [] = run(json_with_meta_vec, run_call)
 
     global plot_debug_allow;
 
@@ -70,7 +70,7 @@ function [] = run_001(json_with_meta_vec, run_call)
     %% run processing for a series of consecutive files
 
     if plot_debug_allowed_local
-        figure(10000)
+        figure(50000)
         clf()
     end
 
@@ -139,7 +139,7 @@ function [] = run_001(json_with_meta_vec, run_call)
         grid on
         grid minor
         
-        title('+lib_001_delay_spread', 'Interpreter', 'none');
+        title('+lib_005_delay_spread', 'Interpreter', 'none');
         ylabel("Abs dB");
         xlabel("Subcarrier Index");
 
@@ -149,7 +149,7 @@ function [] = run_001(json_with_meta_vec, run_call)
         grid on
         grid minor
         
-        title('+lib_001_delay_spread', 'Interpreter', 'none');
+        title('+lib_005_delay_spread', 'Interpreter', 'none');
         ylabel("Angle Rad");
         xlabel("Subcarrier Index");
         
@@ -163,7 +163,7 @@ function [] = run_001(json_with_meta_vec, run_call)
         grid on
         grid minor
         
-        title('+lib_001_delay_spread', 'Interpreter', 'none');
+        title('+lib_005_delay_spread', 'Interpreter', 'none');
         ylabel("Abs dB");
         xlabel("Time in Seconds");
     end
@@ -204,7 +204,7 @@ function [] = run_001(json_with_meta_vec, run_call)
         end
 
         %% start plotting
-        figure(100)
+        figure(500)
         clf()
         
         %% delay spread magnitude linear
@@ -223,7 +223,7 @@ function [] = run_001(json_with_meta_vec, run_call)
         ax = gca;
         ax.XAxis.Exponent = -6;
         
-        title('+lib_001_delay_spread', 'Interpreter', 'none');
+        title('+lib_005_delay_spread', 'Interpreter', 'none');
         ylabel("Abs");
         xlabel("tau in sec");
 
@@ -247,12 +247,12 @@ function [] = run_001(json_with_meta_vec, run_call)
         ax = gca;
         ax.XAxis.Exponent = -6;
         
-        title('+lib_001_delay_spread', 'Interpreter', 'none');
+        title('+lib_005_delay_spread', 'Interpreter', 'none');
         ylabel("Abs dB");
         xlabel("tau in sec");
 
         %% show table in Figure
-        figure(101);
+        figure(501);
         clf();
 
         % in nanoseconds

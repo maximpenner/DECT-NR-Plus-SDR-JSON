@@ -16,7 +16,7 @@
 % the LICENSE file in the top-level directory of this distribution
 % and at http://www.gnu.org/licenses/.
 
-function [] = run_003(json_with_meta_vec, run_call)
+function [] = run(json_with_meta_vec, run_call)
 
     global plot_debug_allow;
 
@@ -60,7 +60,7 @@ function [] = run_003(json_with_meta_vec, run_call)
         packet_struct = json_with_meta.packet_cells{i};
 
         snr_vec(cnt) = packet_struct.PHY.rx_synced.snr;
-        mcs_vec(cnt) = packet_struct.PHY.rx_synced.MCS;
+        mcs_vec(cnt) = packet_struct.PHY.rx_synced.mcs;
         fine_peak_vec(cnt) = lib_extract.fine_peak(packet_struct);
 
         cnt = cnt + 1;

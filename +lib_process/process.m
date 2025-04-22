@@ -55,12 +55,11 @@ function [] = process(config_process)
         run_call.n_packets_per_json = numel(json_with_meta_vec{1}.packet_names);
 
         % actual processing of neighbouring files
-        lib_process_sub.lib_001_delay_spread.run_001(json_with_meta_vec, run_call);
-        lib_process_sub.lib_002_power.run_002(json_with_meta_vec, run_call);
-        lib_process_sub.lib_003_snr_mcs.run_003(json_with_meta_vec, run_call);
-        lib_process_sub.lib_004_per.run_004(json_with_meta_vec, run_call);
-        %lib_process_sub.lib_005_doppler.run_005(json_with_meta_vec, run_call);
-        lib_process_sub.lib_006_subsampling.run_006(json_with_meta_vec, run_call);
+        lib_process_sub.lib_001_sync.run(json_with_meta_vec, run_call);
+        lib_process_sub.lib_002_power.run(json_with_meta_vec, run_call);
+        lib_process_sub.lib_003_snr_mcs.run(json_with_meta_vec, run_call);
+        lib_process_sub.lib_004_per_equidistant_packets.run(json_with_meta_vec, run_call);
+        lib_process_sub.lib_005_delay_spread.run(json_with_meta_vec, run_call);
 
         fprintf("Processing: \tProgress %.2f %%. Call %d of %d finished.\n", i/n_processing*100, i, n_processing);
     end
