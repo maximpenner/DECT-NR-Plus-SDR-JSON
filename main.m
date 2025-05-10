@@ -23,7 +23,7 @@ while 1
     clc;
     
     % Each library in +lib_process_sub extracts a specific information from the measured data.
-    % Each library always plot results at the end of processing, but can also plot during processing for
+    % Each library always plots results at the end of processing, but can also plot during processing for
     % debugging purposes. With this variable, we can globally allow these plots.
     global plot_debug_allow;
     plot_debug_allow = false;
