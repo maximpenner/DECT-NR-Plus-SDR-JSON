@@ -1,5 +1,5 @@
 %
-% Copyright 2024-2025 Maxim Penner
+% Copyright 2024-present Maxim Penner
 %
 % This file is part of DECTNRP.
 %
