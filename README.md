@@ -1,6 +1,6 @@
 # DECT NR+ Software Defined Radio JSON
 
-The [DECT NR+ SDR](https://github.com/maxpenner/DECT-NR-Plus-SDR) can export JSON files containing information about received DECT NR+ packets. The code in this repository can be used to analyze these JSON files and plot different properties over time. This may also happen in real-time while the SDR is running. For this, a subset of the latest JSON files is read and analyzed continuously.
+The [DECT NR+ SDR](https://github.com/maximpenner/DECT-NR-Plus-SDR) can export JSON files containing information about received DECT NR+ packets. The code in this repository can be used to analyze these JSON files and plot different properties over time. This may also happen in real-time while the SDR is running. For this, a subset of the latest JSON files is read and analyzed continuously.
 
 ## How to run `main.m` while the SDR is running?
 
